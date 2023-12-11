@@ -1,5 +1,5 @@
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 
@@ -61,3 +61,9 @@ asv = "^0.6.1"
 [[tool.poetry.source]]
 name = "prometeia"
 url = "https://testproject-modeling-platform.northeurope.cloudapp.azure.com/nexus/repository/prometeia/simple/"
+priority = "primary"
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "supplemental"
+
