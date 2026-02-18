@@ -72,9 +72,6 @@ warn_unreachable = false
 warn_unused_ignores = true
 strict_bytes = true
 
-[tool.poetry.group.dev]
-optional = true
-
 [tool.pyright]
 pythonPlatform = "All"
 include = ["numpy_financial"]
