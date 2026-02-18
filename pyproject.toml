@@ -9,7 +9,7 @@ requires = [
 [project]
 name = "numpy-financial"
 version = "2.0.0"
-requires-python = ">=3.10"
+requires-python = ">=3.11,<3.14"
 description = "Simple financial functions"
 license = "BSD-3-Clause"
 authors = [{name = "Travis E. Oliphant et al."}]
@@ -24,9 +24,7 @@ classifiers = [
     "Intended Audience :: Financial and Insurance Industry",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Software Development",
@@ -39,6 +37,24 @@ classifiers = [
     "Operating System :: MacOS",
     "Typing :: Typed",
 ]
+dependencies = [
+    "numpy>=1.23.5,<3",
+]
+
+# Compatibility metadata for internal Azure templates that still read
+# `tool.poetry.version` to compute CI build numbers.
+[tool.poetry]
+name = "numpy-financial"
+version = "2.0.0"
+description = "Simple financial functions"
+authors = ["Travis E. Oliphant et al."]
+
+[tool.poetry.requires-plugins]
+poetry-plugin-export = ">=1.8"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.14"
+numpy = ">=1.23.5,<3"
 
 [project.optional-dependencies]
 test = [
@@ -72,9 +88,6 @@ warn_unreachable = false
 warn_unused_ignores = true
 strict_bytes = true
 
-[tool.poetry.group.dev]
-optional = true
-
 [tool.pyright]
 pythonPlatform = "All"
 include = ["numpy_financial"]
@@ -93,6 +106,7 @@ optional = true
 [tool.poetry.group.dev.dependencies]
 nox = ">=2024.10.9"
 pytest = "*"
+pytest-cov = "*"
 pytest-xdist = "*"
 hypothesis = "*"
 
