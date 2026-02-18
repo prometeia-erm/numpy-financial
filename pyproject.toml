@@ -99,6 +99,7 @@ optional = true
 [tool.poetry.group.dev.dependencies]
 nox = ">=2024.10.9"
 pytest = "*"
+pytest-cov = "*"
 pytest-xdist = "*"
 hypothesis = "*"
 
