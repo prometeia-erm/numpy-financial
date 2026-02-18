@@ -4,7 +4,8 @@ import nox
 def _run_tests(session: nox.Session, numpy_spec: str) -> None:
     session.install("--upgrade", "pip", "setuptools", "wheel")
     session.install(numpy_spec)
-    session.install(".[test]")
+    session.install("pytest", "pytest-xdist", "hypothesis")
+    session.install(".", "--no-deps")
     session.run("pytest", "-q")
 
 
