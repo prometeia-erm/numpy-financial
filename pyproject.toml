@@ -37,6 +37,9 @@ classifiers = [
     "Operating System :: MacOS",
     "Typing :: Typed",
 ]
+dependencies = [
+    "numpy>=1.23.5,<3",
+]
 
 # Compatibility metadata for internal Azure templates that still read
 # `tool.poetry.version` to compute CI build numbers.
