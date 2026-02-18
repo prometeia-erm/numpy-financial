@@ -40,6 +40,14 @@ classifiers = [
     "Typing :: Typed",
 ]
 
+# Compatibility metadata for internal Azure templates that still read
+# `tool.poetry.version` to compute CI build numbers.
+[tool.poetry]
+name = "numpy-financial"
+version = "2.0.0"
+description = "Simple financial functions"
+authors = ["Travis E. Oliphant et al."]
+
 [project.optional-dependencies]
 test = [
     "pytest",
