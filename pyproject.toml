@@ -48,6 +48,7 @@ authors = ["Travis E. Oliphant et al."]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.14"
+numpy = ">=1.23.5,<3"
 
 [project.optional-dependencies]
 test = [
