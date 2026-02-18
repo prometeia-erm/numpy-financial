@@ -1,15 +1,19 @@
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+build-backend = "mesonpy"
+requires = [
+    "meson-python>=0.15.0",
+    "Cython>=3.0.9",
+    "numpy>=1.23.5",
+]
 
-
-[tool.poetry]
+[project]
 name = "numpy-financial"
-version = "1.1.20231201"
+version = "2.0.0"
+requires-python = ">=3.10"
 description = "Simple financial functions"
 license = "BSD-3-Clause"
-authors = ["Travis E. Oliphant et al."]
-maintainers = ["Numpy Financial Developers <numpy-discussion@python.org>"]
+authors = [{name = "Travis E. Oliphant et al."}]
+maintainers = [{ name = "Numpy Financial Developers", email = "numpy-discussion@python.org" }]
 readme = "README.md"
 homepage = "https://numpy.org/numpy-financial/latest/"
 repository = "https://github.com/numpy/numpy-financial"
@@ -18,13 +22,12 @@ classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Intended Audience :: Financial and Insurance Industry",
-    "License :: OSI Approved :: BSD License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Software Development",
     "Topic :: Office/Business :: Financial :: Accounting",
@@ -34,52 +37,82 @@ classifiers = [
     "Operating System :: POSIX",
     "Operating System :: Unix",
     "Operating System :: MacOS",
+    "Typing :: Typed",
 ]
-packages = [{include = "numpy_financial"}]
 
-[tool.poetry.dependencies]
-python = "^3.9"
-numpy = "^1.23"
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-xdist",
+    "hypothesis",
+]
+doc = [
+    "sphinx>=7.0",
+    "numpydoc>=1.5",
+    "pydata-sphinx-theme>=0.15",
+    "myst-parser>=2.0.0",
+]
+dev = [
+    "ruff>=0.11.5",
+    "asv>=0.6.0",
+    "nox>=2024.10.9",
+]
 
 
-[tool.poetry.group.dev.dependencies]
-pytest = "*"
-pytest-cov = "*"
-pytest-azurepipelines = "*"
-pep8 = "*"
-isort = "*"
-mypy = "*"
-types-python-dateutil = "*"
-pandas-stubs = "*"
-pylint = "*"
-pylint-mongoengine = "*"
-bandit = "*"
-pylint-pytest = "*"
-responses = "^0.23"
-liccheck = {git = "https://github.com/prometeia-erm/python-license-check", rev = "prometeia"}
-setuptools = "^68.2.2"
-ipython = "^8.17.0"
+[tool.mypy]
+exclude = [
+  "^benchmarks/.*",
+  "^doc/.*",
+  "^docweb/.*",
+  "^numpy_financial/tests/.*",
+]
+enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
+local_partial_types = true
+warn_unreachable = false
+warn_unused_ignores = true
+strict_bytes = true
 
 [tool.poetry.group.dev]
 optional = true
 
-[tool.poetry.group.docs.dependencies]
-sphinx = "^7.0"
-numpydoc = "^1.5"
-pydata-sphinx-theme = "^0.14.3"
+[tool.pyright]
+pythonPlatform = "All"
+include = ["numpy_financial"]
+exclude = [
+  "benchmarks",
+  "doc",
+  "docweb",
+  "numpy_financial/tests",
+]
+stubPath = "."
+typeCheckingMode = "standard"
 
-[tool.poetry.group.lint.dependencies]
-ruff = "^0.1.6"
+[tool.poetry.group.dev]
+optional = true
 
-[tool.poetry.group.bench.dependencies]
-asv = "^0.6.1"
+[tool.poetry.group.dev.dependencies]
+nox = ">=2024.10.9"
+pytest = "*"
+pytest-xdist = "*"
+hypothesis = "*"
 
-[[tool.poetry.source]]
-name = "prometeia"
-url = "https://testproject-modeling-platform.northeurope.cloudapp.azure.com/nexus/repository/prometeia/simple/"
-priority = "primary"
 
-[[tool.poetry.source]]
-name = "PyPI"
-priority = "supplemental"
+[tool.spin]
+package = 'numpy_financial'
 
+[tool.spin.commands]
+"Build" = [
+  "spin.cmds.meson.build",
+  "spin.cmds.meson.test",
+  "spin.cmds.build.sdist",
+  "spin.cmds.pip.install",
+]
+"Documentation" = [
+  "spin.cmds.meson.docs"
+]
+"Environments" = [
+  "spin.cmds.meson.shell",
+  "spin.cmds.meson.ipython",
+  "spin.cmds.meson.python",
+  "spin.cmds.meson.run"
+]

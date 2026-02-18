@@ -33,6 +33,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'numpydoc',
     'sphinx.ext.mathjax',
+    'myst_parser',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -60,7 +61,3 @@ html_static_path = ['_static']
 
 html_logo = "_static/numpy_financial_logov.svg"
 html_favicon = "_static/numpy_financial_favicon.png"
-
-html_sidebars = {
-    '**': ['localtoc.html', 'searchbox.html'],
-}
