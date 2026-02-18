@@ -3,38 +3,29 @@ import numpy as np
 import numpy_financial as npf
 
 
-class Npv1DCashflow:
+class Npv2D:
 
-    param_names = ["cashflow_length"]
+    param_names = ["n_cashflows", "cashflow_lengths", "rates_lengths"]
     params = [
-        (1, 10, 100, 1000),
+        (1, 10, 100),
+        (1, 10, 100),
+        (1, 10, 100),
     ]
 
     def __init__(self):
+        self.rates = None
         self.cashflows = None
 
-    def setup(self, cashflow_length):
+    def setup(self, n_cashflows, cashflow_lengths, rates_lengths):
         rng = np.random.default_rng(0)
-        self.cashflows = rng.standard_normal(cashflow_length)
+        cf_shape = (n_cashflows, cashflow_lengths)
+        self.cashflows = rng.standard_normal(cf_shape)
+        self.rates = rng.standard_normal(rates_lengths)
 
-    def time_1d_cashflow(self, cashflow_length):
-        npf.npv(0.08, self.cashflows)
+    def time_for_loop(self, n_cashflows, cashflow_lengths, rates_lengths):
+        for rate in self.rates:
+            for cashflow in self.cashflows:
+                npf.npv(rate, cashflow)
 
-
-class Npv2DCashflows:
-
-    param_names = ["n_cashflows", "cashflow_lengths"]
-    params = [
-        (1, 10, 100, 1000),
-        (1, 10, 100, 1000),
-    ]
-
-    def __init__(self):
-        self.cashflows = None
-
-    def setup(self, n_cashflows, cashflow_lengths):
-        rng = np.random.default_rng(0)
-        self.cashflows = rng.standard_normal((n_cashflows, cashflow_lengths))
-
-    def time_2d_cashflow(self, n_cashflows, cashflow_lengths):
-        npf.npv(0.08, self.cashflows)
+    def time_broadcast(self, n_cashflows, cashflow_lengths, rates_lengths):
+        npf.npv(self.rates, self.cashflows)

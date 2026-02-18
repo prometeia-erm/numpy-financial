@@ -19,3 +19,24 @@ alias is `npf`.  For example,
 >>> npf.irr([-250000, 100000, 150000, 200000, 250000, 300000])
 0.5672303344358536
 ```
+
+## Test Matrix (nox)
+
+This fork uses `nox` sessions to validate Python and NumPy compatibility:
+
+- `tests_py311_np1` (Python 3.11, NumPy <2)
+- `tests_py311_np2` (Python 3.11, NumPy >=2,<3)
+- `tests_py313_np2` (Python 3.13, NumPy >=2,<3)
+
+Run all configured sessions:
+
+```bash
+python -m pip install nox
+nox
+```
+
+Run a specific session:
+
+```bash
+nox -s tests_py313_np2
+```

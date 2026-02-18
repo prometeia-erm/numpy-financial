@@ -1,4 +1,4 @@
-name: Publish docs to gh-pages (disabled)
+name: Type-check (disabled)
 
 on:
   workflow_dispatch:
