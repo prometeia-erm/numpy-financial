@@ -85,6 +85,15 @@ exclude = [
 stubPath = "."
 typeCheckingMode = "standard"
 
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+nox = ">=2024.10.9"
+pytest = "*"
+pytest-xdist = "*"
+hypothesis = "*"
+
 
 [tool.spin]
 package = 'numpy_financial'
