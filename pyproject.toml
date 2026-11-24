@@ -59,11 +59,6 @@ ruff = "^0.1.6"
 asv = "^0.6.1"
 
 [[tool.poetry.source]]
-name = "prometeia"
-url = "https://testproject-modeling-platform.northeurope.cloudapp.azure.com/nexus/repository/prometeia/simple/"
-priority = "primary"
-
-[[tool.poetry.source]]
 name = "PyPI"
 priority = "supplemental"
 
